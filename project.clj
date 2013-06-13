@@ -10,5 +10,6 @@
                  [clojure-ini "0.0.1"]
                  [org.clojure/tools.cli "0.2.1"]
                  [org.clojure/clojure "1.4.0"]]
+  :plugins [[lein-localrepo "0.5.0"]]
   :main jdwh.core
   :aot [jdwh.core jdwh.put])
