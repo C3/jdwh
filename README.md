@@ -76,23 +76,24 @@ With standard input:
 Query results are written to stdout or --out as CSV.
 
 
- Switches                           Default  Desc                                              
- --------                           -------  ----                                              
- -c, --command                               text of an SQL command to run.                    
- -f, --file                                  SQL file to read; otherwise read Standard Input.  
- -o, --out                                   output file, default is standard out.             
- -l, --log                                   log file, default is stderr. If set, then --echo. 
- --no-tags, --tags                  false    replace tags like <<DATABASENAME>> from env vars. 
- --no-transaction, --transaction    false    roll back everything if an exception occurs.      
- --no-explain, --explain            false    just run explain on each statement, for checking. 
- --no-timing, --timing              false    print elapsed time for each statement.            
- --no-fexp, --fexp                  false    connect into fast export mode.                    
- --dbc                              dwh32    name of configuration section in ~/.odbc.ini      
- --encoding                         UTF-8    encoding of the input SQL.                        
- -e, --no-echo, --echo                       echo all SQL commands sent to server to stderr.   
- -d, --no-debug, --debug            false    print detailed output.                            
- -k, --no-keep-going, --keep-going  false    continue even if sql statements fail.             
- -h, --no-help, --help              false    print this help message.                          
+ Switches                           Default      Desc
+ --------                           -------      ----
+ -c, --command                                   text of an SQL command to run.
+ -f, --file                                      SQL file to read; otherwise read Standard Input.
+ -o, --out                                       output file, default is standard out.
+ -l, --log                                       log file, default is stderr. If set, then --echo.
+ --no-tags, --tags                  false        replace tags like <<DATABASENAME>> from env vars.
+ --no-transaction, --transaction    false        roll back everything if an exception occurs.
+ --no-explain, --explain            false        just run explain on each statement, for checking.
+ --no-timing, --timing              false        print elapsed time for each statement.
+ --no-fexp, --fexp                  false        connect into fast export mode.
+ --dbc                              dwh32        name of configuration section in odbc.ini
+ --odbc-config-path                 ~/.odbc.ini  location of the odbc.ini configuration file
+ --encoding                         UTF-8        encoding of the input SQL.
+ -e, --no-echo, --echo                           echo all SQL commands sent to server to stderr.
+ -d, --no-debug, --debug            false        print detailed output.
+ -k, --no-keep-going, --keep-going  false        continue even if sql statements fail.
+ -h, --no-help, --help              false        print this help message.
 ```
 
 ## jdwhput Usage
@@ -106,17 +107,18 @@ Usage:
 
 
 
- Switches                         Default  Desc                                              
- --------                         -------  ----                                              
- -i, --in-csv                              input CSV file to load into a table.              
- --table                                   target table including database: 'database.table' 
- -l, --log                                 log file, default is stderr.                      
- --no-transaction, --transaction  false    roll back inserts if an exception occurs.         
- --no-fastload, --fastload        false    use FASTLOAD connection: empty table, >100k rows. 
- --dbc                            dwh32    name of configuration section in ~/.odbc.ini      
- --encoding                       UTF-8    encoding of the input file.                       
- -d, --no-debug, --debug          false    print detailed output.                            
- -h, --no-help, --help            false    print this help message.                          
+ Switches                         Default      Desc
+ --------                         -------      ----
+ -i, --in-csv                                  input CSV file to load into a table.
+ --table                                       target table including database: 'database.table'
+ -l, --log                                     log file, default is stderr.
+ --no-transaction, --transaction  false        roll back inserts if an exception occurs.
+ --no-fastload, --fastload        false        use FASTLOAD connection: empty table, >100k rows.
+ --dbc                            dwh32        name of configuration section in odbc.ini
+ --odbc-config-path               ~/.odbc.ini  location of the odbc.ini configuration file
+ --encoding                       UTF-8        encoding of the input file.
+ -d, --no-debug, --debug          false        print detailed output.
+ -h, --no-help, --help            false        print this help message.
 ```
 
 

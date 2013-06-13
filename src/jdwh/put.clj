@@ -57,8 +57,10 @@ Usage:
               :flag true :default false]
              ["--fastload" "use FASTLOAD connection: empty table, >100k rows."
               :flag true :default false]
-             ["--dbc" "name of configuration section in ~/.odbc.ini"
+             ["--dbc" "name of configuration section in odbc.ini"
               :default "dwh32"]
+             ["--odbc-config-path" "location of the odbc.ini configuration file",
+              :default "~/.odbc.ini"]
              ["--encoding" "encoding of the input file."
               :default "UTF-8"]
              ["-d" "--debug" "print detailed output." 
@@ -82,11 +84,12 @@ Usage:
     (reset! debug (:debug opts))
     (reset! have-log (:log opts))
     (let [{:keys [in-csv table fastload
-                  log dbc encoding]} opts
+                  log dbc odbc-config-path
+                  encoding]} opts
           ;; need a transaction with fastload because of batching:
           ;; can not fastload into non-empty table
           do-tx? (or (:transaction opts) fastload)
-          dbinfo (assoc (get-db-config dbc)
+          dbinfo (assoc (get-db-config dbc odbc-config-path)
                    :TYPE (if fastload "FASTLOAD" "DEFAULT"))
           batch (if fastload 80000 10000)]
       (when @debug

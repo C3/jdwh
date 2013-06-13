@@ -29,10 +29,10 @@
       (read-line)))
 
 (defn get-db-config
-  "Read database connection parameters from ~/.odbc.ini"
-  [dbc-name]
+  "Read database connection parameters from odbc.ini at odbc-config-path"
+  [dbc-name odbc-config-path]
   (let [user (System/getProperty "user.name")
-        inifile (str "/home/" user "/.odbc.ini")
+        inifile (str odbc-config-path)
         conf0 (ini/read-ini inifile :comment-char \;
                             :allow-comments-anywhere? false)
         conf (zipmap (map str/lower-case (keys conf0))
@@ -41,7 +41,7 @@
     (let [sect (get conf name-ok {})
           dbc (sect "DBCName" "dbccop1")]
       (when (empty? sect)
-        (msg "Section [" dbc-name "] not found in ~/.odbc.ini")
+        (msg "Section [" dbc-name "] not found in " odbc-config-path)
         (when @debug (msg conf))
         (System/exit 1))
       (let [pwd0 (sect "Password")
@@ -282,8 +282,10 @@ Query results are written to stdout or --out as CSV.
              ["--timing" "print elapsed time for each statement.",
               :flag true :default false]
              ["--fexp" "connect into fast export mode." :flag true :default false]
-             ["--dbc" "name of configuration section in ~/.odbc.ini"
+             ["--dbc" "name of configuration section in odbc.ini"
               :default "dwh32"]
+             ["--odbc-config-path" "location of the odbc.ini configuration file",
+              :default "~/.odbc.ini"]
              ["--encoding" "encoding of the input SQL."
               :default "UTF-8"]
              ["-e" "--echo" "echo all SQL commands sent to server to stderr."
@@ -308,10 +310,10 @@ Query results are written to stdout or --out as CSV.
     (reset! keep-going (:keep-going opts))
     (reset! have-log (:log opts))
     (let [{:keys [command file out log
-                  tags fexp dbc explain
-                  encoding]} opts
+                  tags fexp dbc odbc-config-path
+                  explain encoding]} opts
           do-tx? (:transaction opts)
-          dbinfo (assoc (get-db-config dbc)
+          dbinfo (assoc (get-db-config dbc odbc-config-path)
                    :TYPE (if fexp "FASTEXPORT" "DEFAULT"))
           have-f (not (or (str/blank? file) (= file "-")))
           stdin (when (and (not have-f) (str/blank? command))
