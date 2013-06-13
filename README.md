@@ -22,13 +22,13 @@ or run as Java jars.
 To compile you will need the clojure build tool
 (Leiningen)[http://leiningen.org/] v2 and the `lein-localrepo` plugin.
 
-You will need to download the Teradata JDBC driver v 14.00.00.14 from
+You will need to download the Teradata JDBC driver v 14.10.00.17 from
 http://downloads.teradata.com/download/connectivity/jdbc-driver
 
 Install the JDBC driver (two JAR files) for Leiningen as follows:
 
-    lein localrepo install terajdbc4.jar com.teradata.jdbc/TeraDriver 14.00.00.14
-    lein localrepo install tdgssconfig.jar com.teradata.jdbc/tdgssconfig 14.00.00.14
+    lein localrepo install terajdbc4.jar com.teradata.jdbc/TeraDriver 14.10.00.17
+    lein localrepo install tdgssconfig.jar com.teradata.jdbc/tdgssconfig 14.10.00.17
 
 Then to compile:
 
